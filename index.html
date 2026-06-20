@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<title>NICO — Founder Roster</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{background:#000;font-family:'Inter',sans-serif;color:#F2EDE6;min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{display:flex;justify-content:center;}
+.wrap{width:100%;max-width:480px;min-height:100vh;background:#000;padding:0 0 60px;}
+.cu{background:linear-gradient(125deg,#F7CBAA 0%,#E8956D 14%,#B87333 32%,#9A5C28 50%,#E8956D 66%,#F7CBAA 76%,#7A3F18 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cu-soft{background:linear-gradient(110deg,#E8956D 0%,#B87333 40%,#9A5C28 70%,#E8956D 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cu-btn{background:linear-gradient(118deg,#C47A3C 0%,#B87333 22%,#D4814A 46%,#B87333 70%,#9A5C28 100%);color:#040404;font-weight:900;letter-spacing:3px;font-size:11px;border:none;border-radius:14px;padding:16px;width:100%;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(184,115,51,.3),inset 0 1px 0 rgba(247,203,170,.45);transition:transform .15s;}
+.cu-btn:active{transform:translateY(1px);}
+.cu-line{height:1px;background:linear-gradient(to right,transparent,rgba(184,115,51,.45) 25%,rgba(247,203,170,.75) 50%,rgba(184,115,51,.45) 75%,transparent);}
+.nico-input{width:100%;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:12px;padding:15px;color:#F2EDE6;font-size:16px;outline:none;transition:border-color .2s;}
+.nico-input:focus{border-color:rgba(184,115,51,.45);}
+.nico-input::placeholder{color:#28241F;}
+.card{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:16px;padding:16px;margin-bottom:10px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(184,115,51,.35),transparent);}
+.row{display:flex;justify-content:space-between;align-items:center;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:14px;padding:14px 16px;margin-bottom:8px;}
+.num{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;}
+.mini-btn{font-size:9px;letter-spacing:1px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(184,115,51,.08);border:1px solid rgba(184,115,51,.25);color:#B87333;cursor:pointer;}
+.del-btn{font-size:9px;letter-spacing:1px;font-weight:700;padding:7px 10px;border-radius:9px;background:transparent;border:1px solid #2a1a12;color:#5a4030;cursor:pointer;}
+.label{font-size:9px;letter-spacing:3px;font-weight:700;color:#44403A;margin-bottom:8px;}
+@keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.rise{animation:rise .3s ease;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a1209;border:1px solid rgba(184,115,51,.4);color:#E8956D;font-size:12px;font-weight:600;padding:12px 22px;border-radius:100px;z-index:100;opacity:0;transition:opacity .3s;letter-spacing:.5px;}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="padding:20px 20px 6px;display:flex;justify-content:space-between;align-items:center;">
+    <div class="cu" style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;letter-spacing:4px;">NICO</div>
+    <div style="font-size:9px;letter-spacing:2px;font-weight:700;color:#44403A;">FOUNDER ROSTER</div>
+  </div>
+  <div style="padding:0 20px;">
+    <div style="font-size:10px;color:#28241F;letter-spacing:1px;margin-bottom:18px;">Your private master list. Saved on this device.</div>
+    <div style="display:flex;gap:10px;margin-bottom:18px;">
+      <div class="card" style="flex:1;text-align:center;margin-bottom:0;">
+        <div class="cu" style="font-family:'Space Mono',monospace;font-size:26px;font-weight:700;" id="assigned-count">0</div>
+        <div class="label" style="margin-bottom:0;margin-top:4px;">ASSIGNED</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;margin-bottom:0;">
+        <div class="cu-soft" style="font-family:'Space Mono',monospace;font-size:26px;font-weight:700;" id="next-num">2</div>
+        <div class="label" style="margin-bottom:0;margin-top:4px;">NEXT NUMBER</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;margin-bottom:0;">
+        <div style="font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:#44403A;" id="remaining">997</div>
+        <div class="label" style="margin-bottom:0;margin-top:4px;">REMAINING</div>
+      </div>
+    </div>
+    <div class="card rise" style="padding:18px;">
+      <div class="label">ASSIGN NEXT FOUNDER</div>
+      <div class="cu-line" style="margin-bottom:14px;"></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="text-align:center;">
+          <div style="font-size:8px;letter-spacing:2px;color:#44403A;margin-bottom:4px;">NUMBER</div>
+          <div class="cu" style="font-family:'Space Mono',monospace;font-size:32px;font-weight:700;" id="assign-num">2</div>
+        </div>
+        <input class="nico-input" id="name-input" placeholder="Founder's name" style="flex:1;"/>
+      </div>
+      <button class="cu-btn" onclick="assignFounder()">ASSIGN & GENERATE INVITE →</button>
+    </div>
+    <div id="invite-box" style="display:none;" class="card rise">
+      <div class="label">INVITE — TAP TO COPY</div>
+      <div class="cu-line" style="margin-bottom:12px;"></div>
+      <div id="invite-text" onclick="copyInvite()" style="background:#080808;border:1px solid #1a1a1a;border-radius:12px;padding:14px;font-size:13px;line-height:1.7;color:#C9C2B8;white-space:pre-wrap;cursor:pointer;"></div>
+      <button class="cu-btn" style="margin-top:10px;" onclick="copyInvite()">COPY INVITE TEXT</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 12px;">
+      <div class="label" style="margin-bottom:0;">THE ROSTER</div>
+      <div style="font-size:9px;letter-spacing:1px;color:#44403A;cursor:pointer;" onclick="exportRoster()">EXPORT ⬇</div>
+    </div>
+    <div id="roster-list"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const URL_BASE = "nico-app-one.vercel.app";
+let roster = [];
+function load(){
+  try { const v=localStorage.getItem("nico_roster"); roster = v?JSON.parse(v):[{num:1,name:"Nicholas (you)",date:new Date().toISOString()}]; }
+  catch { roster=[{num:1,name:"Nicholas (you)",date:new Date().toISOString()}]; }
+  render();
+}
+function persist(){ try{ localStorage.setItem("nico_roster",JSON.stringify(roster)); }catch{} }
+function nextNumber(){
+  const used = new Set(roster.map(r=>r.num));
+  let n=1; while(used.has(n)) n++;
+  return n;
+}
+function inviteText(num,name){
+  return "You're Founder #"+num+" of 999.\n\nOpen this on your phone: "+URL_BASE+"\n\nTap Share in Safari then \"Add to Home Screen.\"\n\nWhen it opens, enter your name and your founder number: "+num+"\nNo number, no entry. Your number is permanent \u2014 nobody else will ever have it.\n\n\u2014 Nicholas";
+}
+let lastInvite="";
+function assignFounder(){
+  const el=document.getElementById("name-input");
+  const name=el.value.trim();
+  if(!name){ toast("Enter a name first"); return; }
+  const num=nextNumber();
+  roster.push({num,name,date:new Date().toISOString()});
+  roster.sort((a,b)=>a.num-b.num);
+  persist();
+  el.value="";
+  lastInvite=inviteText(num,name);
+  document.getElementById("invite-text").textContent=lastInvite;
+  document.getElementById("invite-box").style.display="block";
+  render();
+  toast("Founder #"+num+" assigned");
+}
+function copyInvite(){
+  navigator.clipboard.writeText(lastInvite).then(function(){toast("Invite copied");}).catch(function(){
+    const t=document.createElement("textarea");t.value=lastInvite;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);toast("Invite copied");
+  });
+}
+function copyOne(num){
+  const r=roster.find(function(x){return x.num===num;}); if(!r)return;
+  lastInvite=inviteText(r.num,r.name);
+  navigator.clipboard.writeText(lastInvite).then(function(){toast("#"+num+" invite copied");}).catch(function(){
+    const t=document.createElement("textarea");t.value=lastInvite;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);toast("#"+num+" invite copied");
+  });
+}
+function removeFounder(num){
+  if(num===1){ toast("You can't remove #1"); return; }
+  if(!confirm("Remove Founder #"+num+"? This frees the number to reassign."))return;
+  roster=roster.filter(function(r){return r.num!==num;});
+  persist(); render(); toast("#"+num+" removed");
+}
+function exportRoster(){
+  const text = "NICO FOUNDER ROSTER\n\n" + roster.map(function(r){return "#"+r.num+" - "+r.name+" - "+new Date(r.date).toLocaleDateString();}).join("\n");
+  const blob=new Blob([text],{type:"text/plain"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download="NICO_Founder_Roster.txt";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast("Roster exported");
+}
+function render(){
+  const next=nextNumber();
+  document.getElementById("assigned-count").textContent=roster.length;
+  document.getElementById("next-num").textContent=next;
+  document.getElementById("assign-num").textContent=next;
+  document.getElementById("remaining").textContent=999-roster.length;
+  const list=document.getElementById("roster-list");
+  if(roster.length===0){ list.innerHTML='<div style="text-align:center;color:#28241F;font-size:12px;padding:20px;">No founders yet.</div>'; return; }
+  list.innerHTML=roster.map(function(r){
+    return '<div class="row"><div style="display:flex;align-items:center;gap:14px;"><div class="num cu">#'+r.num+'</div><div><div style="font-size:14px;font-weight:600;color:#EDE8E1;">'+r.name+'</div><div style="font-size:9px;color:#44403A;letter-spacing:.5px;margin-top:2px;">'+new Date(r.date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})+'</div></div></div><div style="display:flex;gap:6px;"><div class="mini-btn" onclick="copyOne('+r.num+')">COPY</div>'+(r.num!==1?'<div class="del-btn" onclick="removeFounder('+r.num+')">\u2715</div>':'')+'</div></div>';
+  }).join("");
+}
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(window._tt); window._tt=setTimeout(function(){t.classList.remove("show");},1800);
+}
+load();
+</script>
+</body>
+</html>
